@@ -2,6 +2,9 @@ version: '3.7'
 services:
   tftpd:
     image: registry.gitlab.com/company-six/docker-images/tftpd-server:latest
+    # Allow binding of port < 1024 by regular user
+    cap_add:
+      - CAP_NET_BIND_SERVICE
     ports:
       - 69:69
     environment:

@@ -7,8 +7,8 @@ ARG CHARSET=UTF-8
 ARG DEBIAN_MIRROR=ftp.hk.debian.org
 
 ENV TFTPD_PORT=69
-# none, err, notice (default), info, debug
-ENV TFTPD_LOGLEVEL=notice
+# none, err, notice, info, debug (default)
+ENV TFTPD_LOGLEVEL=debug
 ENV TFTPD_ENABLE_WRITABLE=yes
 ENV TFTPD_PATH=/tftpd
 
