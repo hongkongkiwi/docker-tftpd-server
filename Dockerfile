@@ -7,14 +7,14 @@ ARG CHARSET=UTF-8
 ARG DEBIAN_MIRROR=ftp.hk.debian.org
 
 ENV TFTPD_PORT=69
-# none, err, notice, info, debug (default)
-ENV TFTPD_LOGLEVEL=debug
+# none, err, notice (default), info, debug
+ENV TFTPD_LOGLEVEL=notice
 ENV TFTPD_ENABLE_WRITABLE=yes
 ENV TFTPD_PATH=/tftpd
 
 VOLUME $TFTPD_PATH
 
-EXPOSE $TFTPD_PORT
+EXPOSE $TFTPD_PORT/udp
 
 COPY entrypoint.sh /entrypoint.sh
 
