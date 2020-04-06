@@ -47,4 +47,8 @@ RUN echo "Setting up locale ${LOCALE}.${CHARSET}" && \
 RUN echo "Setting up permissions" && \
     chmod 755 /entrypoint.sh
 
+RUN echo "Cleaning up" && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -Rf /tmp/*
+
 CMD ["bash", "entrypoint.sh"]

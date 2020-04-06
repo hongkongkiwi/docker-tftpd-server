@@ -2,5 +2,10 @@ version: '3.7'
 services:
   tftpd:
     build: .
+    image: registry.gitlab.com/company-six/docker-images/tftpd-server:latest
+    ports:
+      - 69:69
+    environment:
+      - TFTPD_LOGLEVEL=debug
     volumes:
       - ./tftpd:/tftpd

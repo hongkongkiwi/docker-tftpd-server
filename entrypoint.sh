@@ -13,4 +13,4 @@ fi
 
 OPTS="ftp=0,tftp=${TFTPD_PORT}${WRITABLE_OPT}"
 
-uftpd -o "$OPTS" -l "$TFTPD_LOGLEVEL" "$TFTPD_PATH"
+exec uftpd -o "$OPTS" -l "$TFTPD_LOGLEVEL" "$TFTPD_PATH" -n
