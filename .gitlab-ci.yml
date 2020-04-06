@@ -1,0 +1,26 @@
+image: $GITLAB_RUNNER_IMAGE
+
+stages:
+  - build
+  - trigger
+
+before_script:
+  - docker info
+  - echo "$CI_REGISTRY_PASSWORD" | docker login -u $CI_REGISTRY_USER --password-stdin $CI_REGISTRY
+
+build_image:
+  stage: build
+  script:
+    - docker pull $CI_REGISTRY_IMAGE:latest || true
+    - docker build --tag "$CI_REGISTRY_IMAGE:latest" --build-arg DEBIAN_MIRROR=deb.debian.org .
+    - docker tag "$CI_REGISTRY_IMAGE:latest" "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - docker tag "$CI_REGISTRY_IMAGE:latest" "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA"
+    - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_NAME"
+    - docker push "$CI_REGISTRY_IMAGE:latest"
+
+# trigger_build:
+#   stage: trigger
+#   script:
+#     - "curl -X POST -F token=TOKEN -F ref=REF_NAME https://gitlab.orbxdev.com/api/v4/projects/1324/trigger/pipeline"
+
